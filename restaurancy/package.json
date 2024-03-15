@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@types/node": "20.10.1",
@@ -26,13 +27,11 @@
     "@vercel/style-guide": "^5.1.0",
     "eslint": "8.54.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.34.0",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
     "standard": "^17.1.0"
-  },
-  "eslintConfig": {
-    "extends": "standard"
   }
 }

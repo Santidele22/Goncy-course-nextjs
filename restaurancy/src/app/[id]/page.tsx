@@ -1,7 +1,7 @@
-import api from "@/api";
-import RestaurantCard from "@/components/card";
-import { Restaurant } from "@/interfaces/restaurant";
+import type { Restaurant } from "@/interfaces/restaurant";
 
+import api from "@/app/api/api";
+import RestaurantCard from "@/app/(index)/components/card";
 
 export async function generateMetadata({ params: { id } }: { params: { id: string } }) {
   const restaurant = await api.fetch(id);
@@ -11,7 +11,6 @@ export async function generateMetadata({ params: { id } }: { params: { id: strin
     description: restaurant.description,
   };
 }
-
 
 export async function generateStaticParams() {
   const restaurants = await api.list();
@@ -23,7 +22,6 @@ export async function generateStaticParams() {
 
 export default async function RestaurantPage({ params: { id } }: { params: { id: string } }) {
   const restaurant: Restaurant = await api.fetch(id);
-  return (
-    <RestaurantCard children={restaurant} />
-  );
+
+  return <RestaurantCard children={restaurant} />;
 }

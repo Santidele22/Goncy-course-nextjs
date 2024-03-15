@@ -1,5 +1,6 @@
-import fetchDatabase from "./fetchs/fetch-database";
-import { Restaurant } from "./interfaces/restaurant";
+import type { Restaurant } from "../../interfaces/restaurant";
+
+import fetchDatabase from "../../fetchs/fetch-database";
 
 const api = {
   list: async (): Promise<Restaurant[]> => {
@@ -9,6 +10,7 @@ const api = {
     const restaurants: Restaurant[] = data.map((row) => {
       const [id, name, description, address, score, ratings, image] =
         row.split(",");
+
       return {
         id,
         name,
@@ -19,6 +21,7 @@ const api = {
         image,
       };
     });
+
     // Lo retornamos
     return restaurants;
   },
@@ -26,6 +29,7 @@ const api = {
     const data = await fetchDatabase();
     const restaurantData = data.find((row) => {
       const [id] = row.split(",");
+
       return restaurant_id === id;
     });
 
@@ -44,7 +48,19 @@ const api = {
       ratings: Number(ratings),
       image,
     };
+
     return restaurant;
   },
+  search: async (query: string): Promise<Restaurant[]> => {
+    // Obtenemos los restaurant
+    const results = await api.list().then((restaurants) =>
+      // Los filtramos por nombre
+      restaurants.filter((restaurant) =>
+        restaurant.name.toLowerCase().includes(query?.toLowerCase()),
+      ),
+    );
+    return results;
+  },
 };
+
 export default api;
